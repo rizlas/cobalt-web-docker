@@ -13,9 +13,9 @@ No patch is applied: cobalt's frontend already builds as a static site via
 `@sveltejs/adapter-static`, it's just not distributed as an image.
 
 The default API URL cobalt's frontend calls (`WEB_DEFAULT_API`, required by
-its build) is a placeholder in the image, not a real domain: the required
-`DEFAULT_API` environment variable is substituted into the built static
-files at container **startup** (see
+its build) is a placeholder in the image, not a real domain: the same
+`WEB_DEFAULT_API` environment variable is substituted into the built
+static files at container **startup** (see
 [docker-entrypoint.d/50-inject-default-api.sh](docker-entrypoint.d/50-inject-default-api.sh)),
 so your own API's URL never has to be committed here or baked into a
 published image. Viewers can still override it per-browser from
@@ -26,7 +26,7 @@ services:
   cobalt-web:
     image: ghcr.io/<owner>/cobalt-web:<tag>
     environment:
-      DEFAULT_API: "https://api.your-domain.example"
+      WEB_DEFAULT_API: "https://api.your-domain.example"
 ```
 
 cobalt's web UI is licensed CC-BY-NC-SA-4.0 by imputnet: non-commercial use

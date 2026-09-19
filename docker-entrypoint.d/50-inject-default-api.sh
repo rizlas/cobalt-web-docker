@@ -8,11 +8,11 @@ set -eu
 
 PLACEHOLDER="https://REPLACE-AT-RUNTIME.invalid"
 
-if [ -z "${DEFAULT_API:-}" ]; then
-    echo "50-inject-default-api.sh: DEFAULT_API env var is required, but missing." >&2
+if [ -z "${WEB_DEFAULT_API:-}" ]; then
+    echo "50-inject-default-api.sh: WEB_DEFAULT_API env var is required, but missing." >&2
     exit 1
 fi
 
 grep -rlF "$PLACEHOLDER" /usr/share/nginx/html 2>/dev/null | while IFS= read -r file; do
-    sed -i "s|$PLACEHOLDER|$DEFAULT_API|g" "$file"
+    sed -i "s|$PLACEHOLDER|$WEB_DEFAULT_API|g" "$file"
 done
